@@ -3,6 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt=require('jsonwebtoken');
 
+
+const authenticate = require("../middleware/authenticate");
+
 require('../db/conn');
 const User = require("../models/userSchema");
 
@@ -133,6 +136,10 @@ router.post('/signin', async (req, res) => {
 
     }
 
+});
+
+router.get('/about' ,authenticate, (req,res)=>{
+    res.send("Hello World On About Page");
 });
 
 

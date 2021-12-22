@@ -31,7 +31,7 @@ const About = () => {
               </div>
             </div>
             <div className="col-md-2">
-                <input type="submit" className="profile-edit-btn" value="Edit profile" name="btnAddmore" />
+            <input type="submit" className="profile-edit-btn" value="Edit profile" name="btnAddmore" />
             </div>
           </div>
 

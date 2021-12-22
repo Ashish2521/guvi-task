@@ -1,9 +1,10 @@
 import React , {useState} from 'react'
 import signup from "../images/signup.svg";
-import {NavLink} from 'react-router-dom';
+import {NavLink ,useNavigate} from 'react-router-dom';
 
 const Register = () => {
 
+  const navigate = useNavigate();
   const [user,setUser] = useState({
     name:"",email:"",phone:"",password:"",cpassword:""
   });
@@ -15,8 +16,37 @@ const Register = () => {
 
     setUser({ ...user , [name]:value});
 
+  }
+
+  const PostData = async (e) =>{
+    e.preventDefault();
+
+    const { name,email,phone,password,cpassword } =user;
+
+    const res = await fetch("/register" , {
+      method:"POST",
+      headers:{
+        "Content-Type" : "application/json"
+      },
+      body:JSON.stringify({
+        name,email,phone,password,cpassword
+      })
+    });
+    const data = await res.json();
+    if(res.status === 422 || res.status === 400 ||
+      res.status === 401 || !data){
+      window.alert("Invalid Registration");
+      console.log("Invalid Registration")
+    } else{
+      window.alert("Succesfull Registration");
+      console.log("Succesfull Registration")
+
+      navigate("/login");
+    }
 
   }
+
+
     return (
         <section className="signup">
         <div className="container mt-5">
@@ -103,7 +133,7 @@ const Register = () => {
                     id="signup"
                     className="form-submit"
                     value="Signup"
-                    //onClick={PostData}
+                    onClick={PostData}
                   />
                 </div>
               </form>

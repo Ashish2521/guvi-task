@@ -18,21 +18,11 @@ app.use(require('./router/auth'));
 const PORT=process.env.PORT;
 
 
-app.get('/' , (req,res)=>{
-    res.send("Hello World from server app.js");
-});
 
-app.get('/login' , (req,res)=>{
-    res.send("Hello World On Login Page");
-});
 
-app.get('/register' , (req,res)=>{
-    res.send("Hello World On Signup Page");
-});
-
-app.get('/about' , (req,res)=>{
-    res.send("Hello World On About Page");
-});
+// app.get('/about' , (req,res)=>{
+//     res.send("Hello World On About Page");
+// });
 
 
 app.listen(PORT , ()=>{

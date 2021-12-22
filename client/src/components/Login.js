@@ -1,8 +1,39 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
+import React, {useState} from 'react';
+import {NavLink ,useNavigate} from 'react-router-dom';
 import loginImg from "../images/signin.svg";
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+
+  const loginUser = async (e) =>{
+    e.preventDefault();
+
+    const res = await fetch('/signin',{
+      method:"POST",
+      headers:{
+        "Content-Type" : "application/json"
+      },
+      body:JSON.stringify({
+        email,
+        password
+      })
+    });
+    const data = await res.json();
+
+    if (res.status === 400 || !data) {
+      alert("Invalid Credentials");
+    } else {
+      
+      alert("Login Successful");
+      navigate("/home");
+    }
+
+  }
+
     return (
         <section className="sign-in">
       <div className="container mt-5">
@@ -28,8 +59,8 @@ const Login = () => {
                   id="email"
                   autocomplete="off"
                   placeholder="Your Email"
-                 // onChange={(e) => setEmail(e.target.value)}
-                //  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
               </div>
               <div className="form-group">
@@ -42,8 +73,8 @@ const Login = () => {
                   id="password"
                   autocomplete="off"
                   placeholder="Your Password"
-                 // onChange={(e) => setPassword(e.target.value)}
-                //  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
               </div>
               <div className="form-group form-button">
@@ -53,7 +84,7 @@ const Login = () => {
                   id="signin"
                   className="form-submit"
                   value="Signin"
-                 // onClick={loginUser}
+                  onClick={loginUser}
                 />
               </div>
             </form>
